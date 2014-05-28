@@ -13,7 +13,8 @@
     },
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/migrations",
+            "src/AdvancedStore/Facades"
         ],
         "psr-0": {
             "AdvancedStore\\ApiClient\\": "src/"
