@@ -6,7 +6,7 @@
  * Time: 12:26
  */
 
-namespace AdvancedStore\ApiClient\Controllers;
+namespace AdvancedStore\Controllers;
 
 class ApiClientController{
 

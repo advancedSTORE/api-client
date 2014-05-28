@@ -1,7 +1,7 @@
 <?php namespace AdvancedStore\ApiClient;
 
 use Illuminate\Support\ServiceProvider;
-use AdvancedStore\ApiClient\Controllers\ApiClientController;
+use AdvancedStore\ApiClient\ApiCore\ApiClientController;
 
 class ApiClientServiceProvider extends ServiceProvider {
 
