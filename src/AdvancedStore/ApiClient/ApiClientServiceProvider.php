@@ -30,6 +30,9 @@ class ApiClientServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		//
+        $this->app['apiClient'] = $this->app->share( function(){
+            return new ApiClientController;
+        });
 	}
 
 	/**
@@ -39,9 +42,7 @@ class ApiClientServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-        $this->app['apiClient'] = $this->app->share( function(){
-            return new ApiClientController;
-        });
+
 		return array();
 	}
 
