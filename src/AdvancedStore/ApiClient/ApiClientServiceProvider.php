@@ -1,6 +1,7 @@
 <?php namespace AdvancedStore\ApiClient;
 
 use Illuminate\Support\ServiceProvider;
+use AdvancedStore\ApiClient\Controllers\ApiClientController;
 
 class ApiClientServiceProvider extends ServiceProvider {
 
@@ -38,6 +39,9 @@ class ApiClientServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
+        $this->app['apiClient'] = $this->app->share( function(){
+            return new ApiClientController;
+        });
 		return array();
 	}
 
