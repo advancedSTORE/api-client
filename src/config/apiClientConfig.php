@@ -9,6 +9,6 @@
 
 return [
     'OAuth2Client'      =>  O2Client::getFacadeRoot(),
-    'ApiPath'           =>  'http://192.168.178.155:3323/api',
-    'AccessTokenPath'           =>  'http://192.168.178.155:3323/api/access_token',
+    'ApiPath'           =>  Request::root() . '/api',
+    'AccessTokenPath'           =>  Request::root() . '/api/access_token',
 ];
