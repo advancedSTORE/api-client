@@ -14,6 +14,13 @@ class ApiClientController{
 
     private $userPermissions = null;
 
+    public function __construct(){
+
+        $oauth2Client = \Config::get('api-client::apiClientConfig.OAuth2Client');
+
+        $this->setApiResponse( $oauth2Client->fetch(\Config::get('api-client::apiClientConfig.ApiPath')) );
+    }
+
     public function setApiResponse( $apiResponse ){
         $this->apiResponse = $apiResponse;
     }
@@ -32,8 +39,9 @@ class ApiClientController{
      * into a single array with unique values.
      */
     private function extractUserPermissions( ){
-        $groupPermissions = $this->getAppPermissions( $this->apiResponse->groups );
-        $partnerPermissions = $this->getAppPermissions( $this->apiResponse->partnerRoles );
+
+        $groupPermissions = $this->getAppPermissions( $this->apiResponse['result']['groups'] );
+        $partnerPermissions = $this->getAppPermissions( $this->apiResponse['result']['partner_roles'] );
 
         $userPermissions = array_merge( $groupPermissions, $partnerPermissions );
 
@@ -42,11 +50,9 @@ class ApiClientController{
 
 
     private function getAppPermissions( $userRoles ){
-
         $permissionArray = [];
-
         foreach( $userRoles as $role ){
-            foreach( $role->appPermissions->toArray() as $appPermission ){
+            foreach( $role['app_permissions'] as $appPermission ){
                 $permissionArray[] = $appPermission['appPermissionName'];
             }
         }
