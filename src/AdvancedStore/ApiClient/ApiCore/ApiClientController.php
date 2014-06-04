@@ -16,9 +16,6 @@ class ApiClientController{
 
     public function __construct(){
 
-        $oauth2Client = \Config::get('api-client::apiClientConfig.OAuth2Client');
-
-        $this->setApiResponse( $oauth2Client->fetch(\Config::get('api-client::apiClientConfig.ApiPath')) );
     }
 
     public function setApiResponse( $apiResponse ){
@@ -26,9 +23,18 @@ class ApiClientController{
     }
 
     public function getUserPermissions(){
-//        $this->userPermissions = ['ad4mat.admin.dashboard','ad4mat.admin.users.read'];
 
-        $this->userPermissions = $this->extractUserPermissions();
+        $oauth2Client = \Config::get('api-client::apiClientConfig.OAuth2Client');
+
+
+
+        $this->setApiResponse( $oauth2Client->fetch(\Config::get('api-client::apiClientConfig.ApiPath')) );
+
+
+        $this->userPermissions = [];
+
+        if( $oauth2Client->hasValidAccessToken() )
+            $this->userPermissions = $this->extractUserPermissions();
 
         return $this->userPermissions;
     }
