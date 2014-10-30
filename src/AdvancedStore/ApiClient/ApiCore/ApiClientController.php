@@ -12,8 +12,6 @@ class ApiClientController{
 
     private $apiResponse = null;
 
-    private $userPermissions = null;
-
     public function __construct(){
 
     }
@@ -22,21 +20,18 @@ class ApiClientController{
         $this->apiResponse = $apiResponse;
     }
 
-    public function getUserPermissions(){
+    public function getUserPermissions()
+    {
 
         $oauth2Client = \Config::get('api-client::apiClientConfig.OAuth2Client');
 
+        $this->setApiResponse($oauth2Client->fetch(\Config::get('api-client::apiClientConfig.ApiPath')));
 
+        if ($oauth2Client->hasValidAccessToken()) {
+            return $this->extractUserPermissions();
+        }
 
-        $this->setApiResponse( $oauth2Client->fetch(\Config::get('api-client::apiClientConfig.ApiPath')) );
-
-
-        $this->userPermissions = [];
-
-        if( $oauth2Client->hasValidAccessToken() )
-            $this->userPermissions = $this->extractUserPermissions();
-
-        return $this->userPermissions;
+        return [];
     }
 
     /**
@@ -46,9 +41,13 @@ class ApiClientController{
      */
     private function extractUserPermissions( ){
 
-        $groupPermissions = $this->getAppPermissions( $this->apiResponse['result']['groups'] );
-        $partnerPermissions = $this->getAppPermissions( $this->apiResponse['result']['partner_roles'] );
-
+        $groupPermissions = $partnerPermissions = [];
+        if( isset( $this->apiResponse['result']['groups'] ) ) {
+            $groupPermissions = $this->getAppPermissions($this->apiResponse['result']['groups']);
+        }
+        if( isset( $this->apiResponse['result']['partner_roles'] ) ){
+            $partnerPermissions = $this->getAppPermissions( $this->apiResponse['result']['partner_roles'] );
+        }
         $userPermissions = array_merge( $groupPermissions, $partnerPermissions );
 
         return array_unique( $userPermissions );
