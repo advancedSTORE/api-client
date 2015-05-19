@@ -5,7 +5,9 @@ use AdvancedStore\ApiClient\ApiCore\ApiClientController;
 
 class ApiClientServiceProvider extends ServiceProvider {
 
-	/**
+	const PACKAGE_NAME = 'advanced-store/api-client';
+
+    /**
 	 * Indicates if loading of the provider is deferred.
 	 *
 	 * @var bool
@@ -19,7 +21,10 @@ class ApiClientServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('advanced-store/api-client');
+		$this->mergeConfigFrom(
+			__DIR__.'/../config/apiClientConfig.php',
+			self::PACKAGE_NAME
+		);
 	}
 
 	/**
