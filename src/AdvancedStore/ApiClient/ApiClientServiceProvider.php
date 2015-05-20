@@ -5,7 +5,7 @@ use AdvancedStore\ApiClient\ApiCore\ApiClientController;
 
 class ApiClientServiceProvider extends ServiceProvider {
 
-	const PACKAGE_NAME = 'advanced-store/api-client';
+	const PACKAGE_NAME = 'api-client';
 
     /**
 	 * Indicates if loading of the provider is deferred.
@@ -27,7 +27,7 @@ class ApiClientServiceProvider extends ServiceProvider {
 		);
 		$this->publishes([
 			__DIR__.'/../ApiCore/'
-		]);
+		], self::PACKAGE_NAME);
 	}
 
 	/**
