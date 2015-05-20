@@ -25,6 +25,9 @@ class ApiClientServiceProvider extends ServiceProvider {
 			__DIR__.'/../config/apiClientConfig.php',
 			self::PACKAGE_NAME
 		);
+		$this->publishes([
+			__DIR__.'/../ApiCore/'
+		]);
 	}
 
 	/**
