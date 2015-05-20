@@ -25,9 +25,9 @@ class ApiClientServiceProvider extends ServiceProvider {
 			__DIR__.'/../config/apiClientConfig.php',
 			self::PACKAGE_NAME
 		);
-		$this->publishes([
+		/*$this->publishes([
 			__DIR__.'/../ApiCore/'
-		], self::PACKAGE_NAME);
+		], self::PACKAGE_NAME);*/
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ApiClientServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		//
-        $this->app['apiClient'] = $this->app->share( function(){
+        $this->app->bindShared('apiClient', function(){
             return new ApiClientController;
         });
 	}
