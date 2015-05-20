@@ -21,13 +21,9 @@ class ApiClientServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->mergeConfigFrom(
-			__DIR__.'/../config/apiClientConfig.php',
-			self::PACKAGE_NAME
-		);
-		/*$this->publishes([
-			__DIR__.'/../ApiCore/'
-		], self::PACKAGE_NAME);*/
+        $this->publishes([
+            __DIR__.'/../../config/apiClientConfig.php' => config_path('apiClientConfig.php'),
+        ]);
 	}
 
 	/**
