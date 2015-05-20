@@ -8,7 +8,5 @@
 
 
 return [
-    'OAuth2Client'      =>  O2Client::getFacadeRoot(),
-    'ApiPath'           =>  Request::root() . '/api',
-    'AccessTokenPath'           =>  Request::root() . '/api/access_token',
+    'ApiPath' => '/api',
 ];

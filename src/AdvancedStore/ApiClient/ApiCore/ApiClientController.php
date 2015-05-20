@@ -12,6 +12,9 @@ class ApiClientController{
 
     private $apiResponse = null;
 
+    private static $O_AUTH_2_CLIENT = null;
+    private static $API_PATH = null;
+
     public function __construct(){
 
     }
@@ -22,12 +25,15 @@ class ApiClientController{
 
     public function getUserPermissions()
     {
+        if(self::$O_AUTH_2_CLIENT == null){
+            self::$O_AUTH_2_CLIENT = \O2Client::getFacadeRoot();
+        }
+        if(self::$API_PATH == null){
+            self::$API_PATH =   Request::root() . \Config::get('apiClientConfig::ApiPath');
+        }
+        $this->setApiResponse(self::$O_AUTH_2_CLIENT->fetch(self::$API_PATH));
 
-        $oauth2Client = \Config::get('api-client::apiClientConfig.OAuth2Client');
-
-        $this->setApiResponse($oauth2Client->fetch(\Config::get('api-client::apiClientConfig.ApiPath')));
-
-        if ($oauth2Client->hasValidAccessToken()) {
+        if (self::$O_AUTH_2_CLIENT->hasValidAccessToken()) {
             return $this->extractUserPermissions();
         }
 
