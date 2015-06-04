@@ -8,5 +8,6 @@
 
 
 return [
-    'ApiPath' => '/api',
+    'ApiPath'           => '/api',
+    'AccessTokenPath'   => '/api/access_token',
 ];

@@ -29,7 +29,7 @@ class ApiClientController{
             self::$O_AUTH_2_CLIENT = \O2Client::getFacadeRoot();
         }
         if(self::$API_PATH == null){
-            self::$API_PATH =   Request::root() . \Config::get('apiClientConfig::ApiPath');
+            self::$API_PATH =   \Request::root() . \Config::get('apiClientConfig::ApiPath');
         }
         $this->setApiResponse(self::$O_AUTH_2_CLIENT->fetch(self::$API_PATH));
 
