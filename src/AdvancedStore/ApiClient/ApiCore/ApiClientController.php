@@ -64,7 +64,7 @@ class ApiClientController{
         $permissionArray = [];
         foreach( $userRoles as $role ){
             foreach( $role['app_permissions'] as $appPermission ){
-                $permissionArray[] = $appPermission['appPermissionName'];
+                $permissionArray[] = $appPermission['app_permission_name'];
             }
         }
 
